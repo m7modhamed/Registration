@@ -11,26 +11,27 @@
 
 </head>
 <body>
+<div th:replace="~{fragments/navbar :: nav}"></div>
+<br>
 <div class="container col-md-offset-3 col-md-8 mt-lg-5">
 
     <div class="row mt-2">
         <div th:if="${param.success}">
-        Registration successful,
-            please check your email to complete your registration.
+            <p class="alert alert-info"><b>Registration successful</b> ,please check your email to complete your registration.</p>
         </div>
         <div class="m-4">
             User Registration Form
         </div>
     </div>
 
-    <form th:action="@{/registration/register}" method="post" th:object="${user}" class="px-4">
+    <form th:action="@{/registration/register}" method="post" th:object="${user}" class="px-4" autocomplete="off">
 
     <div class="mb-3 row">
         <label for="firstName" class="col-sm-2 col-form-label">first Name</label>
         <div class="col-sm-6">
             <input type="text"  id="firstName"
                    class="form-control" required autofocus="autofocus"
-                   name="firstName" th:field="*{firstName}">
+                   name="firstName" th:field="*{firstName}" >
         </div>
     </div>
 
@@ -39,7 +40,7 @@
             <div class="col-sm-6">
                 <input type="text"  id="lastName"
                        class="form-control" required
-                       name="lastName" th:field="*{lastName}">
+                       name="lastName" th:field="*{lastName}" >
             </div>
         </div>
 
@@ -62,10 +63,10 @@
         </div>
 
         <div>
-            <button type="submit" class="btn btn-success">Register</button>
+            <button type="submit" class="btn btn-success">Register   </button>
             <span>
                 Registered already?
-                <a href="/" th:href="@{authenticate/login-form}">
+                <a href="/" th:href="@{/login}">
                     Login here.
                 </a>
             </span>

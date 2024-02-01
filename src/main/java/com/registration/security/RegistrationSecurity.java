@@ -25,7 +25,7 @@ public class RegistrationSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/", "/registration/**")
+                        .requestMatchers("/", "/registration/**","/login","/error")
                         .permitAll()
                         .anyRequest()
                         .authenticated()
@@ -40,6 +40,7 @@ public class RegistrationSecurity {
                         .clearAuthentication(true)
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/")
+
 
                 );
 
