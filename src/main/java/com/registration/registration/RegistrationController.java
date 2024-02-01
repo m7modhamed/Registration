@@ -40,10 +40,18 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") RegistrationRequest registrationRequest, HttpServletRequest req) {
-        User user = service.registerUser(registrationRequest);
+        Optional<User> user = service.findUserByEmail(registrationRequest.getEmail());
+        if(user.isPresent() && user.get().getIsActive()){
+            return "redirect:/registration/registration-form?exist";
+        }else if(user.isPresent() && !user.get().getIsActive()){
+            publisher.publishEvent(new RegistrationCompleteEvent(user.get(), UrlUtil.getApplicationUrl(req)));
+            return "redirect:/registration/registration-form?success";
+        }else{
+            User theUser = service.registerUser(registrationRequest);
+            publisher.publishEvent(new RegistrationCompleteEvent(theUser, UrlUtil.getApplicationUrl(req)));
+            return "redirect:/registration/registration-form?success";
+        }
 
-        publisher.publishEvent(new RegistrationCompleteEvent(user, UrlUtil.getApplicationUrl(req)));
-        return "redirect:/registration/registration-form?success";
     }
 
     @GetMapping("/verifyEmail")

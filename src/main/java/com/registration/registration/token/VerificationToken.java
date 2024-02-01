@@ -22,7 +22,7 @@ public class VerificationToken {
     private Long id;
     private String token;
     private Date expirationTime;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

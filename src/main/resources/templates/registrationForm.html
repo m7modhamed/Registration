@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head th:replace="~{fragments/frag :: boots_trap}">
     <meta charset="UTF-8">
     <title>User Registration Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-          crossorigin="anonymous">
 
 
 </head>
 <body>
-<div th:replace="~{fragments/navbar :: nav}"></div>
+<div th:replace="~{fragments/frag :: nav}"></div>
 <br>
 <div class="container col-md-offset-3 col-md-8 mt-lg-5">
 
@@ -19,6 +15,10 @@
         <div th:if="${param.success}">
             <p class="alert alert-info"><b>Registration successful</b> ,please check your email to complete your registration.</p>
         </div>
+        <div th:if="${param.exist}">
+            <p class="alert alert-danger alert-dismissible fade show">This email already registered.</p>
+        </div>
+
         <div class="m-4">
             User Registration Form
         </div>

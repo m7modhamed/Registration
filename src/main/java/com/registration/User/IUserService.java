@@ -11,5 +11,9 @@ public interface IUserService {
     User registerUser(RegistrationRequest registrationRequest);
 
     Optional<User> findUserByEmail(String email);
+    Optional<User> findUserById(Long id);
 
+    User updateUser(User user);
+
+    void deleteUser(Long id);
 }
