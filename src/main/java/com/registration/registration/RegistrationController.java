@@ -45,7 +45,7 @@ public class RegistrationController {
             return "redirect:/registration/registration-form?exist";
         }else if(user.isPresent() && !user.get().getIsActive()){
             publisher.publishEvent(new RegistrationCompleteEvent(user.get(), UrlUtil.getApplicationUrl(req)));
-            return "redirect:/registration/registration-form?success";
+            return "redirect:/registration/registration-form?notValid";
         }else{
             User theUser = service.registerUser(registrationRequest);
             publisher.publishEvent(new RegistrationCompleteEvent(theUser, UrlUtil.getApplicationUrl(req)));

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -31,9 +32,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id" ,
             referencedColumnName = "id" )
     )
-    private Collection<Role> roles;
+    private List<Role> roles;
 
-    public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
+    public User(String firstName, String lastName, String email, String password, List<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

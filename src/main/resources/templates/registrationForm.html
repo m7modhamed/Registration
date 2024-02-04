@@ -18,6 +18,9 @@
         <div th:if="${param.exist}">
             <p class="alert alert-danger alert-dismissible fade show">This email already registered.</p>
         </div>
+        <div th:if="${param.notValid}">
+            <p class="alert alert-danger alert-dismissible fade show">This email already registered but you should check your email to complete your registration.</p>
+        </div>
 
         <div class="m-4">
             User Registration Form

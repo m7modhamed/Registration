@@ -6,30 +6,38 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 
-@Configuration
-@EnableWebSecurity
+@Component
 public class RegistrationSecurity {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-
         return new BCryptPasswordEncoder();
     }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/", "/registration/**","/login","/error")
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated()
+                .authorizeHttpRequests((request) -> {
+                            request
+                                    .requestMatchers("/registration/**", "/login/**", "/error/**")
+                                    .permitAll();
 
+                            request
+                                    .requestMatchers("/")
+                                    .authenticated();
+
+                            request
+                                    .requestMatchers("/users/**")
+                                    .hasAnyRole("ADMIN");
+
+                        }
                 ).formLogin((form) -> form
                         .loginPage("/login")
                         .usernameParameter("email")
@@ -48,7 +56,6 @@ public class RegistrationSecurity {
         return http.build();
 
     }
-
 
 
 }
