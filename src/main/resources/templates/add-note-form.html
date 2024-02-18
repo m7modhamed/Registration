@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <meta charset="UTF-8">
+    <title>Add Note</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+    <style>
+        body{
+            background: linear-gradient(#0B2447,#222);
+            color: white;
+            font-weight: 600;
+            height: 100vh;
+        }
+        h1{
+            text-align: center;
+            font-weight: 900;
+            margin: 20px 0;
+        }
+        button{
+            width: 150px;
+            margin-left: auto;
+            align-items: center;
+        }
+        .glass{
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            height: 70vh;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        form{
+            flex-basis: 80%;
+            padding: 20px;
+            line-height: 50px;
+            font-size: 20px;
+        }
+        .colorContainer{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn{
+            width: 50%;
+            border-radius: 20px;
+        }
+        .pageTitle{
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 10px 0;
+            font-weight: 900;
+
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/frag :: nav}"></div>
+<div class="container">
+    <h1 class="pageTitle">Add Sticky Note</h1>
+    <br>
+
+    <div class="glass">
+        <form th:action="@{/notes/addnote}" method="post" th:object="${note}">
+            <input type="text" th:field="*{id}" hidden="hidden">
+            <div class="mb-3">
+                <label for="Title" class="form-label">Sticky Note Title</label>
+                <input type="text" th:field="*{title}" class="form-control" id="Title" aria-describedby="emailHelp" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <input type="text" th:field="*{description}" class="form-control" id="description" required>
+            </div>
+
+            <div class="mb-3 colorContainer">
+                <label for="exampleColorInput" class="form-label">Sticky Note Color</label>
+                <input style="width: 150px;" th:field="*{color}"  type="color" class="form-control form-control-color" id="exampleColorInput" value="#ffffff" title="Choose your color">
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

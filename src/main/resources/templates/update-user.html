@@ -1,46 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="~{fragments/frag :: boots_trap}">
+<head>
     <meta charset="UTF-8">
     <title>Update User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+    <style>
+        body{
+            background: linear-gradient(#0B2447,#222);
+            font-weight: 600;
+            align-content: center;
+            text-align: center;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .myContainer{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .glass{
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            height: 60vh;
+            margin: 50px 0;
+            width: 80%;
+        }
+        form{
+            margin: 70px 0 0 0;
+            font-size: 20px;
+        }
+        .formTitle{
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 10px 0;
+            margin: 30px 0 0 0;
+            font-weight: 900;
+            width: 80%;
+        }
+        button{
+            width: 130px;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
 <div th:replace="~{fragments/frag :: nav}"></div>
 
-<div class="container col-md-offset-3 col-md-8 mt-lg-5 mb-md-5">
-    <h2 class="m-4">Edit User</h2>
+<div class="container">
+    <div class="myContainer">
+        <h2 class="formTitle">User Login Form</h2>
+        <div class="glass">
+            <form th:action="@{/users/update/*{id}}" method="post" th:object="${user}" class="px-4">
+                <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{isActive}">
+                <input type="hidden" th:field="*{password}">
+                <input type="hidden" th:field="*{roles}">
+                <input type="hidden" th:field="*{notes}">
+                <div>
+                    <label for="firstName" class="col-sm-2 col-form-label">first Name</label>
+                        <input type="text"  id="firstName" autofocus="autofocus"
+                               class="form-control" required name="firstName" th:field="*{firstName}" >
+                </div>
 
-    <form th:action="@{/users/update/*{id}}" method="post" th:object="${user}" class="px-4">
-        <input type="hidden" th:field="*{id}">
-        <input type="hidden" th:field="*{isActive}">
-        <input type="hidden" th:field="*{password}">
-        <div class="mb-3 row">
-            <label for="firstName" class="col-sm-2 col-form-label">first Name</label>
-            <div class="col-sm-6">
-                <input type="text"  id="firstName" autofocus="autofocus"
-                       class="form-control" required name="firstName" th:field="*{firstName}" >
-            </div>
-        </div>
+                <div >
+                    <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+                        <input type="text"  id="lastName" autofocus="autofocus"
+                               class="form-control" required name="lastName" th:field="*{lastName}" >
+                </div>
 
-        <div class="mb-3 row">
-            <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
-            <div class="col-sm-6">
-                <input type="text"  id="lastName" autofocus="autofocus"
-                       class="form-control" required name="lastName" th:field="*{lastName}" >
-            </div>
+                <div >
+                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                        <input type="text"  id="email" autofocus="autofocus"
+                               class="form-control" readonly name="email" th:field="*{email}" >
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success">Update User</button>
+                </div>
+            </form>
         </div>
-
-        <div class="mb-3 row">
-            <label for="email" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-6">
-                <input type="text"  id="email" autofocus="autofocus"
-                       class="form-control" readonly name="email" th:field="*{email}" >
-            </div>
-        </div>
-        <div>
-            <button type="submit" class="btn btn-success">Update User</button>
-        </div>
-    </form>
+    </div>
 </div>
 </body>
 </html>
