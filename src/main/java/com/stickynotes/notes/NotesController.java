@@ -66,7 +66,9 @@ public class NotesController {
         if (user.isPresent()) {
             user.get().getNotes().add(note);
         }
-        note.setState("to_do");
+        if(note.getState().isEmpty()) {
+            note.setState("to_do");
+        }
         noteService.saveNote(note);
         return "redirect:/notes/";
     }

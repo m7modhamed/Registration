@@ -13,4 +13,6 @@ public interface IpasswordResetTokenService {
     void resetPassword(User theUser, String password);
 
     void createPasswordResetTokenForUser(User user, String passwordResetToken);
+
+    void deleteUserToken(Long id);
 }

@@ -62,10 +62,11 @@
 <div class="container">
     <h1 class="pageTitle">Add Sticky Note</h1>
     <br>
-
     <div class="glass">
         <form th:action="@{/notes/addnote}" method="post" th:object="${note}">
             <input type="text" th:field="*{id}" hidden="hidden">
+            <input type="text" th:field="*{state}" hidden="hidden">
+            <input type="date" th:field="*{createdAt}" hidden="hidden">
             <div class="mb-3">
                 <label for="Title" class="form-label">Sticky Note Title</label>
                 <input type="text" th:field="*{title}" class="form-control" id="Title" aria-describedby="emailHelp" required>

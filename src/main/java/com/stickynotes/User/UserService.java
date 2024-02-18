@@ -1,6 +1,7 @@
 package com.stickynotes.User;
 
 import com.stickynotes.registration.RegistrationRequest;
+import com.stickynotes.registration.password.IpasswordResetTokenService;
 import com.stickynotes.registration.token.VerificationTokenService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class UserService implements IUserService{
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final VerificationTokenService verificationTokenService;
-
+    private final IpasswordResetTokenService passwordTokenService;
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -29,7 +30,7 @@ public class UserService implements IUserService{
                 reg.getLastName(),
                 reg.getEmail(),
                 passwordEncoder.encode(reg.getPassword()),
-        Arrays.asList(new Role("ROLE_USER")));
+        Arrays.asList(new Role("ROLE_ADMIN")));
         return userRepository.save(user);
     }
 
@@ -54,7 +55,11 @@ public class UserService implements IUserService{
     @Override
     public void deleteUser(Long id) {
         Optional<User> theUser = userRepository.findById(id);
-        theUser.ifPresent(user -> verificationTokenService.deleteUserToken(user.getId()));
+        //theUser.ifPresent(user -> verificationTokenService.deleteUserToken(user.getId()));
+        if(theUser.isPresent()){
+            passwordTokenService.deleteUserToken(theUser.get().getId());
+            verificationTokenService.deleteUserToken(theUser.get().getId());
+        }
         userRepository.deleteById(id);
     }
 

@@ -45,4 +45,9 @@ public class passwordResetTokenService implements IpasswordResetTokenService{
         PasswordResetToken resetToken = new PasswordResetToken(passwordResetToken, user);
         passwordResetTokenRepository.save(resetToken);
     }
+
+    @Override
+    public void deleteUserToken(Long id) {
+        passwordResetTokenRepository.deleteByUserId(id);
+    }
 }
